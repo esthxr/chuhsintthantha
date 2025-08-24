@@ -1,43 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <title>Main Menu</title>
   <style>
     body {
-      font-family: 'Trebuchet MS', sans-serif;
-      background: linear-gradient(135deg, #f9f9f9, #cce0ff);
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364); 
+      color: white;
       text-align: center;
       padding: 50px;
     }
+
     h1 {
-      font-size: 50px;
-      color: #333;
+      color: #00e5ff;
       margin-bottom: 40px;
-      text-shadow: 2px 2px #ccc;
     }
-    a {
-      display: inline-block;
-      margin: 20px;
-      padding: 20px 30px;
-      font-size: 20px;
-      background-color: #4cafef;
+
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    .menu a {
+      display: block;
+      padding: 20px;
+      background: linear-gradient(135deg, #1f4068, #162447);
       color: white;
       text-decoration: none;
-      border-radius: 12px;
-      box-shadow: 0px 5px 15px rgba(0,0,0,0.2);
-      transition: all 0.3s ease;
+      border-radius: 10px;
+      font-weight: bold;
+      transition: background 0.3s;
     }
-    a:hover {
-      background-color: #0077cc;
-      transform: scale(1.05);
-    }
+
+    .menu a:hover {
+  background: linear-gradient(135deg, #1f5d68, #1a4a58); 
+}
   </style>
 </head>
 <body>
-  <h1>🎯 Tool Selection</h1>
-  <a href="converter/converter.html">🌡 Temperature Converter</a>
-  <a href="grading/grading.html">📊 Grade Assignment</a>
-  <a href="change/change.html">💵 Calculate Change</a>
+  <h1>⚡ Tool Selection ⚡</h1>
+  <div class="menu">
+    <a href="converter/converter.html">Temperature Converter</a>
+    <a href="grading/grading.html">Grade Assignment</a>
+    <a href="change/change.html">Calculate Change</a>
+    <a href="geolocation/geolocation.html">Geolocation</a>
+    <a href="hobby/hobby.html">Hobby</a>
+    <a href="resume/resume.html">Resume</a>
+  </div>
 </body>
 </html>
