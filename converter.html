@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Temperature Converter</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle, #ffecd2, #fcb69f);
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      font-size: 40px;
+      color: #333;
+      margin-bottom: 30px;
+    }
+    label { font-size: 20px; }
+    input {
+      padding: 10px 15px;
+      font-size: 17px;
+      border: 2px solid #ff7e5f;
+      border-radius: 8px;
+      margin: 10px;
+      width: 200px;
+    }
+    button {
+      padding: 10px 25px;
+      font-size: 16px;
+      background-color: #ff7e5f;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover { background-color: #e65c3a; }
+    p {
+      font-size: 25px;
+      margin-top: 30px;
+      color: #222;
+    }
+    #result {
+      font-weight: bold;
+      color: #b92b27;
+    }
+    .back-btn {
+      margin-top: 40px;
+      padding: 10px 25px;
+      font-size: 16px;
+      background-color: #222;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .back-btn:hover { background-color: #555; }
+  </style>
+</head>
+<body>
+  <h1>🌡 Temperature Converter</h1>
+  <label for="celsius">Enter Celsius:</label>
+  <input type="number" id="celsius" name="celsius">
+  <button type="button" onclick="convertTemperature()">Submit</button>
+  
+  <p>Equal to <span id="result"></span> °F</p>
+
+<div style="margin-top: 40px;">
+  <button class="back-btn" onclick="location.href='../main.html'">⬅ Back to Main Menu</button>
+</div>
+  <script>
+    function convertTemperature() {
+      var celsius = document.getElementById("celsius").value;
+      if (celsius === "" || isNaN(celsius)) {
+        alert("Please enter a valid number.");
+        return;
+      }
+      var fahrenheit = (celsius * 9/5) + 32;
+      document.getElementById("result").innerHTML = fahrenheit.toFixed(2);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Grade Assignment</title>
+  <style>
+    body {
+      font-family: 'Verdana', sans-serif;
+      background: linear-gradient(120deg, #c2e59c, #64b3f4);
+      text-align: center;
+      padding: 40px;
+    }
+    h1 { font-size: 40px; color: #fff; margin-bottom: 30px; }
+    label { font-size: 20px; color: white; }
+    input {
+      padding: 10px;
+      font-size: 17px;
+      border: 2px solid #fff;
+      border-radius: 8px;
+      margin: 10px;
+      width: 100px;
+    }
+    button {
+      padding: 10px 25px;
+      font-size: 16px;
+      background-color: #fff;
+      color: #333;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover { background-color: #ddd; }
+    p { font-size: 25px; color: #fff; margin-top: 30px; }
+    #result { font-weight: bold; }
+    .back-btn {
+      margin-top: 40px;
+      padding: 10px 25px;
+      font-size: 16px;
+      background-color: #333;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+    .back-btn:hover { background-color: #000; }
+  </style>
+</head>
+<body>
+  <h1>📊 Grade Assignment</h1>
+  <label for="score">Enter the Score:</label>
+  <input type="number" id="score" name="score">
+  <button type="button" onclick="convertGrade()">Submit</button>
+  
+  <p id="grade-output" style="display: none;">
+    You got "<span id="result"></span>": grade.
+  </p>
+
+<div style="margin-top: 40px;">
+  <button class="back-btn" onclick="location.href='../main.html'">⬅ Back to Main Menu</button>
+</div>
+
+  <script>
+    function convertGrade() {
+      var score = document.getElementById("score").value;
+      if (score === "" || isNaN(score) || score < 0 || score > 100) {
+        alert("Please enter a score between 0 and 100.");
+        return;
+      }
+      score = Number(score);
+      var grade = "";
+      if (score >= 90) grade = "A";
+      else if (score >= 80) grade = "B";
+      else if (score >= 70) grade = "C";
+      else grade = "D";
+      
+      document.getElementById("result").innerHTML = grade;
+      document.getElementById("grade-output").style.display = "block";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Distance to Kasem Bundit University (Romklao)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #89f7fe, #66a6ff);
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+  }
+  .container {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    max-width: 500px;
+    text-align: center;
+    animation: fadeIn 1s ease-in-out;
+  }
+  h1 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #2b6ef6;
+  }
+  p {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    color: #555;
+  }
+  button {
+    background: linear-gradient(45deg, #2b6ef6, #5a89f7);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    font-size: 1rem;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(43,110,246,0.4);
+    transition: all 0.3s ease;
+  }
+  button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(43,110,246,0.5);
+  }
+  button:disabled {
+    background: #999;
+    box-shadow: none;
+    cursor: not-allowed;
+  }
+  #output {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: #f0f4ff;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    animation: fadeIn 0.5s ease-in-out;
+  }
+  small {
+    display: block;
+    margin-top: 0.5rem;
+    color: #777;
+    font-size: 0.85rem;
+  }
+  @keyframes fadeIn {
+    from {opacity: 0; transform: translateY(10px);}
+    to {opacity: 1; transform: translateY(0);}
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>Find Distance to Kasem Bundit University</h1>
+    <p>Romklao Campus</p>
+    <button id="locBtn">Where am I?</button>
+    <div id="output" aria-live="polite"></div>
+  </div>
+
+  <script>
+    // Kasem Bundit University (Romklao campus) coordinates
+    const KBU_LAT = 13.80265;
+    const KBU_LON = 100.73699;
+
+    const btn = document.getElementById('locBtn');
+    const output = document.getElementById('output');
+
+    function showMessage(html) {
+      output.innerHTML = html;
+    }
+
+    // Haversine formula — returns kilometers
+    function haversineKm(lat1, lon1, lat2, lon2) {
+      const toRad = deg => deg * Math.PI / 180;
+      const R = 6371.0088; // Earth's radius in km
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+      const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+      return R * c;
+    }
+
+    function handleLocationClick() {
+      if (!('geolocation' in navigator)) {
+        showMessage("<strong>Geolocation is not supported by your browser.</strong>");
+        return;
+      }
+
+      btn.disabled = true;
+      showMessage("📍 Requesting your location...");
+
+      navigator.geolocation.getCurrentPosition(
+        position => {
+          const { latitude, longitude, accuracy } = position.coords;
+          const km = haversineKm(latitude, longitude, KBU_LAT, KBU_LON);
+          const kmRounded = km.toFixed(2);
+
+          showMessage(
+            `You're <strong>${kmRounded} km</strong> away from Kasem Bundit University (Romklao campus).<br>` +
+            `<small>Your location: ${latitude.toFixed(6)}, ${longitude.toFixed(6)} ` +
+            `(±${Math.round(accuracy)} m).<br>` +
+            `KBU location: ${KBU_LAT}, ${KBU_LON}.</small>`
+          );
+          btn.disabled = false;
+        },
+        err => {
+          let msg;
+          switch (err.code) {
+            case err.PERMISSION_DENIED:
+              msg = "❌ Location permission denied. Please allow location access.";
+              break;
+            case err.POSITION_UNAVAILABLE:
+              msg = "⚠️ Position unavailable. Try again later.";
+              break;
+            case err.TIMEOUT:
+              msg = "⏳ Request timed out. Try again.";
+              break;
+            default:
+              msg = "Error getting location: " + (err.message || err.code);
+          }
+          showMessage(`<strong>${msg}</strong>`);
+          btn.disabled = false;
+        },
+        { enableHighAccuracy: true, timeout: 15000, maximumAge: 0 }
+      );
+    }
+
+    btn.addEventListener('click', handleLocationClick);
+  </script>
+</body>
+</html>

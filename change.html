@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Calculate Change</title>
+  <style>
+    body {
+      font-family: 'Courier New', monospace;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #00ffcc;
+      text-align: center;
+      padding: 40px;
+    }
+    h1 {
+      font-size: 40px;
+      text-shadow: 0 0 10px #00ffff;
+    }
+    label { font-size: 20px; }
+    input {
+      padding: 10px;
+      font-size: 18px;
+      border: 2px solid #00ffaa;
+      border-radius: 8px;
+      background-color: #1a1a1a;
+      color: #00ffcc;
+      margin: 10px;
+      width: 120px;
+    }
+    button {
+      padding: 10px 25px;
+      font-size: 16px;
+      background-color: #00ffaa;
+      color: black;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    button:hover { background-color: #00ccaa; }
+    p { font-size: 22px; margin-top: 30px; }
+    #change-output {
+      font-weight: bold;
+      color: #66ffcc;
+    }
+    .back-btn {
+      margin-top: 40px;
+      padding: 10px 25px;
+      font-size: 16px;
+      background-color: #222;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+    }
+    .back-btn:hover { background-color: #555; }
+  </style>
+</head>
+<body>
+  <h1>💵 Calculate Change</h1>
+  <label for="amount">Enter the amount (฿):</label>
+  <input type="number" id="amount" name="amount">
+  <button type="button" onclick="calculateChange()">Submit</button>
+
+  <p id="change-result">
+    Change:<br>
+    <span id="change-output"></span>
+  </p>
+
+<div style="margin-top: 40px;">
+  <button class="back-btn" onclick="location.href='../main.html'">⬅ Back to Main Menu</button>
+</div>
+
+  <script>
+    function calculateChange() {
+      var amount = document.getElementById("amount").value;
+      if (amount === "" || isNaN(amount) || amount < 0) {
+        alert("Please enter a valid non-negative number.");
+        return;
+      }
+      amount = Number(amount);
+      var result = "";
+      var denominations = [1000, 500, 100, 50, 20, 10, 5, 1];
+      for (var i = 0; i < denominations.length; i++) {
+        var count = Math.floor(amount / denominations[i]);
+        if (count > 0) {
+          result += count + " of ฿" + denominations[i] + "<br>";
+          amount %= denominations[i];
+        }
+      }
+      document.getElementById("change-output").innerHTML = result;
+      document.getElementById("change-result").style.display = "block";
+    }
+  </script>
+</body>
+</html>
