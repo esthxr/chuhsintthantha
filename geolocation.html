@@ -76,12 +76,17 @@
 </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Find Distance to Kasem Bundit University</h1>
-    <p>Romklao Campus</p>
-    <button id="locBtn">Where am I?</button>
-    <div id="output" aria-live="polite"></div>
-  </div>
+  <div style="display:flex; flex-direction:column; align-items:center; width:100%;">
+    <div class="container">
+      <h1>Find Distance to Kasem Bundit University</h1>
+      <p>Romklao Campus</p>
+      <button id="locBtn">Where am I?</button>
+      <div id="output" aria-live="polite"></div>
+    </div>
+
+    <div style="margin-top: 40px;">
+      <button class="back-btn" onclick="location.href='../main.html'">⬅ Back to Main Menu</button>
+    </div>
 
   <script>
     // Kasem Bundit University (Romklao campus) coordinates
@@ -135,13 +140,13 @@
           let msg;
           switch (err.code) {
             case err.PERMISSION_DENIED:
-              msg = "❌ Location permission denied. Please allow location access.";
+              msg = "Location permission denied. Please allow location access.";
               break;
             case err.POSITION_UNAVAILABLE:
-              msg = "⚠️ Position unavailable. Try again later.";
+              msg = "Position unavailable. Try again later.";
               break;
             case err.TIMEOUT:
-              msg = "⏳ Request timed out. Try again.";
+              msg = "Request timed out. Try again.";
               break;
             default:
               msg = "Error getting location: " + (err.message || err.code);
